@@ -98,7 +98,7 @@
  The 16 hex digits is a unique ID.  This ID appears to change with each
  new connection.
  The Session is also listed in the chat log (e.g., chat256.dbb or
- chat512.dbb). 
+ chat512.dbb).
 
  Let's assume you only have one of the chat files.  How much of the
  conversation are you missing?
@@ -220,7 +220,7 @@ void	SkypeOpenFile	(char *Filename)
   MemorySize=Stat.st_size;
   if (MemorySize > 0)
     {
-    Memory=mmap64(0,MemorySize,PROT_READ,MAP_PRIVATE,FileIn,0);
+    Memory= static_cast<byte*>(mmap64(0,MemorySize,PROT_READ,MAP_PRIVATE,FileIn,0));
     if (Memory == MAP_FAILED)
       {
       fprintf(stderr,"ERROR: Unable to mmap file (%s)\n",Filename);
@@ -292,7 +292,7 @@ uint64_t	Bytes2Val	(int Len)
 	fprintf(stderr,"ERROR: Fractional Skype record.\n");
 	return(0);
 	}
-  
+
   Len--;
   Shift=0;
   while(Len >= 0)
